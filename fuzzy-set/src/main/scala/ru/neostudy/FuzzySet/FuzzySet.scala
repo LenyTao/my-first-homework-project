@@ -67,7 +67,7 @@ class FuzzySet[T](val m: T => Double) {
 
 object FuzzySetApp extends App {
 
-  implicit val fuzzySetUniverse = new FuzzySet.Universe(Set.from(1 to 10))
+  implicit val fuzzySetUniverse = new FuzzySet.Universe(Set.from(1 to 10)) /// Вот здесь красным выделено from
   val emptyFuzzySet = new FuzzySet[Int](_ => 0.0)
   val fuzzySet = new FuzzySet[Int]({
     case 1 => 0.5
