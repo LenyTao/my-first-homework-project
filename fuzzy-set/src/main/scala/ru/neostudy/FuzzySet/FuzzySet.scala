@@ -4,7 +4,7 @@ import ru.neostudy.FuzzySet.FuzzySet.Universe
 
 object FuzzySet {
 
-  class Universe[T](val values: Set[T])
+  class Universe[T](val values: Seq[T])
 
 }
 
@@ -21,13 +21,7 @@ class FuzzySet[T](val m: T => Double) {
    * Метод проверят содержит ли множество некое значение v
    */
   def contains(v: T): Boolean = {
-    if (m(v) > 0) {
-      println("Значение " + v + " содержится в множестве с вероятностью " + m(v) * 100 + " %")
-      true
-    } else {
-      println("Значение " + v + " отсутствует в множестве")
-      false
-    }
+    if (m(v) > 0) true else false
   }
 
   /**
@@ -67,12 +61,12 @@ class FuzzySet[T](val m: T => Double) {
 
 object FuzzySetApp extends App {
 
-  implicit val fuzzySetUniverse = new FuzzySet.Universe(Set.from(1 to 10)) /// Вот здесь красным выделено from
+  implicit val fuzzySetUniverse = new FuzzySet.Universe((1 to 10))
   val emptyFuzzySet = new FuzzySet[Int](_ => 0.0)
   val fuzzySet = new FuzzySet[Int]({
     case 1 => 0.5
     case 2 => 0.75
-    case 3 => 1.0
+    case 3 => 0.6
     case _ => 0.0
   })
   val fuzzySet2 = new FuzzySet[Int]({
@@ -87,12 +81,4 @@ object FuzzySetApp extends App {
     case 3 => 1.0
     case _ => 0.0
   })
-//    println(emptyFuzzySet.isEmpty)
-  //  println(fuzzySet.isEmpty)
-  //  println(fuzzySet.contains(3))
-  //  println(fuzzySet.equalTo(fuzzySet2))
-  //  println(fuzzySet.equalTo(fuzzySet3))
-  //  fuzzySet.union(fuzzySet3)
-  //  fuzzySet.intersect(fuzzySet3)
-  //  fuzzySet.complement
 }
